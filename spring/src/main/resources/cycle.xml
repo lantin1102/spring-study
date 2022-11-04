@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+    <bean id="beanA" class="com.lantin.cycle.BeanA">
+        <property name="beanB" ref="beanB"/>
+    </bean>
+    <bean id="beanB" class="com.lantin.cycle.BeanB">
+        <property name="beanA" ref="beanA"/>
+    </bean>
+
+    <bean id="log2Util2" class="com.lantin.cycle.Log2Util2"/>
+    <aop:aspectj-autoproxy/>
+
+    <bean id="logUtil" class="com.lantin.cycle.LogUtil "/>
+    <aop:config>
+        <aop:aspect id="aspect1" ref="logUtil">
+            <aop:pointcut id="allMethod" expression="execution (* com.lantin.cycle..*.*(..))"/>
+            <aop:before method="logBeforeExecute" pointcut-ref="allMethod"/>
+            <aop:after method="afterExecute" pointcut-ref="allMethod"/>
+        </aop:aspect>
+    </aop:config>
+</beans>

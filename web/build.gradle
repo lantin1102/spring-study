@@ -1,0 +1,14 @@
+group 'com.lantin'
+version '1.0-SNAPSHOT'
+
+
+dependencies {
+    implementation 'org.springframework:spring-webmvc'
+    // runtimeOnly
+    implementation 'org.springframework.boot:spring-boot-starter'
+    testImplementation 'junit:junit'
+    testImplementation 'org.springframework:spring-test'
+    compileClasspath 'javax.servlet:javax.servlet-api'
+    // testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    // testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}

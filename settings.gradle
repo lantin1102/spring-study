@@ -1,0 +1,6 @@
+rootProject.name = 'spring-study'
+include 'web'
+include 'spring-boot'
+include 'annotation'
+include 'spring'
+

@@ -1,0 +1,54 @@
+
+plugins {
+    id "io.spring.dependency-management" version "1.0.11.RELEASE"
+    id 'org.springframework.boot' version '2.6.6'
+}
+group 'com.lantin'
+version '1.0-SNAPSHOT'
+
+ext {
+    springbootVersion = '2.6.6'
+    javaxAnnotationVersion = '1.3.2'
+}
+
+// 所有子项目通用配置
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    sourceCompatibility = 11
+    targetCompatibility = 11
+    repositories {
+        mavenLocal()
+        maven { url 'https://maven.aliyun.com/repository/public/' }
+        maven { url 'https://maven.aliyun.com/repository/spring/' }
+        // mavenCentral()
+    }
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+    // 版本管理
+    dependencyManagement {
+        imports {
+            // mavenBom SpringBootPlugin.BOM_COORDINATES
+            mavenBom "org.springframework.boot:spring-boot-dependencies:${springbootVersion}"
+            // mavenBom 'org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}'
+            // mavenBom 'com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}'
+        }
+        dependencies {
+            dependency  "javax.annotation:javax.annotation-api:$javaxAnnotationVersion"
+        }
+    }
+    // 所有自模块通用依赖
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+    }
+    // test {
+    //     useJUnitPlatform()
+    // }
+}
